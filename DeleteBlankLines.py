@@ -60,7 +60,8 @@ class DeleteBlankLinesCommand( sublime_plugin.TextCommand ):
         elif line_endings == 'mac':
             string = string.replace('\r\r', '\r')
         else: # unix
-            string = string.replace('\n\n', '\n')
+            reg = re.compile(r'^\s*\n', re.MULTILINE)
+            string = re.sub(reg, '', string)
         return string
 
     def delete_surplus_blank_lines(self, string):
